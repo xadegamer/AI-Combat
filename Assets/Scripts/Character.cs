@@ -4,40 +4,66 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public enum State {Idle, Attack, SpecialAttack, Dodge, Strafe}
+    public enum State {Attack, SpecialAttack, Dodge, Strafe}
 
     [SerializeField] State state;
     [SerializeField] Transform target;
     [SerializeField] float strafeDuration;
-
-    [SerializeField] bool isBlocking;
+    
+    bool isBlocking;
+    int currentChoice;
+    WaitForSeconds w_battleDelay;
+    WaitForSeconds w_stateDelay;
 
     AnimationHandler animationHandler;
-    DamageCollider damageCollider;
-    void Start()
+
+    private void Awake()
+    {
+        w_battleDelay = new WaitForSeconds(GameManager.Instance.BattleDelay());
+        w_stateDelay = new WaitForSeconds(GameManager.Instance.StateDelay());
+    }
+
+    IEnumerator Start()
     {
         animationHandler = GetComponent<AnimationHandler>();
-        damageCollider = GetComponentInChildren<DamageCollider>();
 
-       // SwitchState(State.Strafe);
+        yield return w_battleDelay;
+
+        SwitchState();
+    }
+
+    public void SwitchState()
+    {
+        int randomState = Random.Range(0,4);
+
+        while (randomState == currentChoice || randomState == (int)State.Dodge) { randomState = Random.Range(0, 4); }
+
+        currentChoice = randomState;
+
+        state = (State)currentChoice;
+
+        if(!CanDodge()) StartCoroutine(state.ToString());
     }
 
     IEnumerator Attack()
     {
-        while (true)
-        {
-            animationHandler.AttackAnimation();
-        }
+        animationHandler.AttackAnimation();
+        yield return w_stateDelay;
+        SwitchState();
     }
 
     IEnumerator SpecialAttack()
     {
-        yield return new WaitForSeconds(1);
+        animationHandler.SpeciaialAttackAnimation();
+        yield return w_stateDelay;
+        SwitchState();
     }
 
     IEnumerator Dodge()
     {
-        yield return new WaitForSeconds(1);
+        animationHandler.BlockAnimation();
+        yield return w_stateDelay;
+        SwitchState();
     }
 
     IEnumerator Strafe()
@@ -48,19 +74,13 @@ public class Character : MonoBehaviour
         {
             DoStraf(Vector3.up);
 
-            currentDuration--;
+            currentDuration -= Time.deltaTime;
             yield return null;
         }
 
         animationHandler.StrafAnimation(0.5f);
 
-        SwitchState(State.Attack);
-    }
-
-    public void SwitchState(State newState)
-    {
-        state = newState;
-        StartCoroutine(newState.ToString());
+        SwitchState();
     }
 
     void Update()
@@ -79,16 +99,6 @@ public class Character : MonoBehaviour
         transform.LookAt(target);
     }
 
-    public void ToggleDamageOn()
-    {
-        damageCollider.ToggleDamageCollider(true);
-    }
-
-    public void ToggleDamageOff()
-    {
-        damageCollider.ToggleDamageCollider(false);
-    }
-
     public void ToggleBlocking()
     {
         isBlocking = !isBlocking;
@@ -104,5 +114,29 @@ public class Character : MonoBehaviour
     public void Hit()
     {
         animationHandler.HitAnimation();
+    }
+
+    public bool CanDodge()
+    {
+        if (target.GetComponent<WeaponHandler>().AboutToAttack())
+        {
+            int randomChanceToDodge = Random.Range(0, 5);
+            if (randomChanceToDodge > 1)
+            {
+                state = State.Dodge;
+                currentChoice = (int) state;
+                StartCoroutine(state.ToString());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void CounterAttack()
+    {
+        StopAllCoroutines();
+        state = State.Attack;
+        currentChoice = (int)state;
+        StartCoroutine(state.ToString());
     }
 }

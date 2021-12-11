@@ -48,13 +48,17 @@ public class AnimationHandler : MonoBehaviour
 
     public bool AnimationIsPlaying(string stateName)
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName(stateName) && animator.GetCurrentAnimatorStateInfo(0).normalizedTime != 1)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return (animator.GetCurrentAnimatorStateInfo(0).IsName(stateName) && CurrentAnimationStillPlaying());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            Debug.Log(animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+    }
+
+    public bool CurrentAnimationStillPlaying()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).normalizedTime != 1;
     }
 }

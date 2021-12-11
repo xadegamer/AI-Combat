@@ -8357,6 +8357,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 446930, guid: 77ad9661321c6e84280c8fbe32492c06, type: 3}
   m_PrefabInstance: {fileID: 536149391}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &541348855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 541348857}
+  - component: {fileID: 541348856}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &541348856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541348855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a647033f873733f42b3fc2e11a437670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleDelay: 2
+  stateDelay: 1.5
+--- !u!4 &541348857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541348855}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16.822191, y: 3.6370964, z: -0.01462841}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &541549320
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14841,7 +14886,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.1945401, y: -0.68113613, z: 0.19534841, w: 0.6782674}
-  m_LocalPosition: {x: 19.36981, y: 7.161083, z: -5.5848293}
+  m_LocalPosition: {x: 21, y: 9, z: -5.5848293}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -30767,9 +30812,10 @@ GameObject:
   m_Component:
   - component: {fileID: 55498431042184074}
   - component: {fileID: 55498431032641260}
-  - component: {fileID: 55498431041995969}
   - component: {fileID: 55498431041995970}
+  - component: {fileID: 55498431041995969}
   - component: {fileID: 55498431041995968}
+  - component: {fileID: 55498431041995971}
   - component: {fileID: 55498431041995967}
   m_Layer: 0
   m_Name: Character_Knight_03_Orange
@@ -30792,8 +30838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   target: {fileID: 8567396296833934749}
-  strafeDuration: 1000
-  isBlocking: 0
+  strafeDuration: 3
 --- !u!114 &55498431041995968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30806,20 +30851,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100df65e40a4e4e46945576df436e83a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &55498431041995969
-CapsuleCollider:
+--- !u!65 &55498431041995969
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 55498431041995966}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.27
-  m_Height: 1.87
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.91, z: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.85, y: 1.8, z: 0.63}
+  m_Center: {x: 0, y: 0.99, z: 0}
 --- !u!54 &55498431041995970
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -30836,6 +30880,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &55498431041995971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55498431041995966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d72687b551b1e3c4ab8218d5adfc1800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aboutToAttack: 0
 --- !u!1 &55498431041997292
 GameObject:
   m_ObjectHideFlags: 0
@@ -34950,9 +35007,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8567396296833934749}
   - component: {fileID: 8567396296826836295}
-  - component: {fileID: 8567396296834196054}
   - component: {fileID: 8567396296834196055}
+  - component: {fileID: 8567396296834196054}
   - component: {fileID: 8567396296834196052}
+  - component: {fileID: 8567396296834196056}
   - component: {fileID: 8567396296834196053}
   m_Layer: 0
   m_Name: Character_Knight_01_Black
@@ -34987,22 +35045,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   target: {fileID: 55498431042184074}
-  strafeDuration: 1000
-  isBlocking: 0
---- !u!136 &8567396296834196054
-CapsuleCollider:
+  strafeDuration: 3
+--- !u!65 &8567396296834196054
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8567396296834196051}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.27
-  m_Height: 1.87
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.91, z: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.85, y: 1.8, z: 0.63}
+  m_Center: {x: 0, y: 0.99, z: 0}
 --- !u!54 &8567396296834196055
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -35019,6 +35075,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8567396296834196056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567396296834196051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d72687b551b1e3c4ab8218d5adfc1800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aboutToAttack: 0
 --- !u!1 &8567396296834196137
 GameObject:
   m_ObjectHideFlags: 0
