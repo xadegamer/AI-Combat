@@ -51,12 +51,6 @@ public class AnimationHandler : MonoBehaviour
         return (animator.GetCurrentAnimatorStateInfo(0).IsName(stateName) && CurrentAnimationStillPlaying());
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            Debug.Log(animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
-    }
-
     public bool CurrentAnimationStillPlaying()
     {
         return animator.GetCurrentAnimatorStateInfo(0).normalizedTime != 1;
