@@ -8387,7 +8387,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleDelay: 2
-  stateDelay: 1.5
 --- !u!4 &541348857
 Transform:
   m_ObjectHideFlags: 0
@@ -30838,6 +30837,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   target: {fileID: 8567396296833934749}
+  stateDelay: 1
+  attackDuration: 1.4
+  specialDuration: 1.2
+  dodgeDuration: 1.4
   strafeDuration: 3
 --- !u!114 &55498431041995968
 MonoBehaviour:
@@ -30859,7 +30862,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 55498431041995966}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.85, y: 1.8, z: 0.63}
@@ -30892,7 +30895,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d72687b551b1e3c4ab8218d5adfc1800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aboutToAttack: 0
 --- !u!1 &55498431041997292
 GameObject:
   m_ObjectHideFlags: 0
@@ -35045,6 +35047,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   target: {fileID: 55498431042184074}
+  stateDelay: 1
+  attackDuration: 1.4
+  specialDuration: 1.2
+  dodgeDuration: 1.4
   strafeDuration: 3
 --- !u!65 &8567396296834196054
 BoxCollider:
@@ -35054,7 +35060,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8567396296834196051}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.85, y: 1.8, z: 0.63}
@@ -35087,7 +35093,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d72687b551b1e3c4ab8218d5adfc1800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aboutToAttack: 0
 --- !u!1 &8567396296834196137
 GameObject:
   m_ObjectHideFlags: 0

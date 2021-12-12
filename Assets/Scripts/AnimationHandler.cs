@@ -5,6 +5,7 @@ using UnityEngine;
 public class AnimationHandler : MonoBehaviour
 {
     private Animator animator;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -17,33 +18,33 @@ public class AnimationHandler : MonoBehaviour
 
     public void AttackAnimation()
     {
-        if (!AnimationIsPlaying(AnimationTags.SPECIALATTACK))
-            animator.SetTrigger(AnimationTags.ATTACK);
+        if (AnimationIsPlaying(AnimationTags.ATTACK)) return;
+        animator.SetTrigger(AnimationTags.ATTACK);
     }
 
     public void SpeciaialAttackAnimation()
     {
-        if (!AnimationIsPlaying(AnimationTags.SPECIALATTACK))
-            animator.SetTrigger(AnimationTags.SPECIALATTACK);
+        if (AnimationIsPlaying(AnimationTags.SPECIALATTACK)) return;
+        animator.SetTrigger(AnimationTags.SPECIALATTACK);
     }
 
     public void HitAnimation()
     {
-        if (!AnimationIsPlaying(AnimationTags.HIT))
-            animator.SetTrigger(AnimationTags.HIT);
+        if (AnimationIsPlaying(AnimationTags.HIT)) return;
+        animator.SetTrigger(AnimationTags.HIT);
     }
 
 
     public void BlockAnimation()
     {
-        if (!AnimationIsPlaying(AnimationTags.BLOCK))
-            animator.SetTrigger(AnimationTags.BLOCK);
+        if (AnimationIsPlaying(AnimationTags.BLOCK)) return;
+        animator.SetTrigger(AnimationTags.BLOCK);
     }
 
     public void BlockHitAnimation()
     {
-        if (!AnimationIsPlaying(AnimationTags.BLOCKHIT))
-            animator.SetTrigger(AnimationTags.BLOCKHIT);
+        if (AnimationIsPlaying(AnimationTags.BLOCKHIT)) return;
+        animator.SetTrigger(AnimationTags.BLOCKHIT);
     }
 
     public bool AnimationIsPlaying(string stateName)

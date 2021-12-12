@@ -8,19 +8,34 @@ public class Character : MonoBehaviour
 
     [SerializeField] State state;
     [SerializeField] Transform target;
+    [SerializeField] float stateDelay;
+
+    [Header("State Duration")]
+
+    [SerializeField] float attackDuration;
+    [SerializeField] float specialDuration;
+    [SerializeField] float dodgeDuration;
     [SerializeField] float strafeDuration;
     
     bool isBlocking;
     int currentChoice;
+    int hits = 0;
+
     WaitForSeconds w_battleDelay;
-    WaitForSeconds w_stateDelay;
+    WaitForSeconds w_attackDelay;
+    WaitForSeconds w_specialAttackDelay;
+    WaitForSeconds w_dodgeDelay;
+
 
     AnimationHandler animationHandler;
 
     private void Awake()
     {
         w_battleDelay = new WaitForSeconds(GameManager.Instance.BattleDelay());
-        w_stateDelay = new WaitForSeconds(GameManager.Instance.StateDelay());
+
+        w_attackDelay = new WaitForSeconds(attackDuration + stateDelay);
+        w_specialAttackDelay = new WaitForSeconds(specialDuration + stateDelay);
+        w_dodgeDelay = new WaitForSeconds(dodgeDuration + stateDelay);
     }
 
     IEnumerator Start()
@@ -48,21 +63,21 @@ public class Character : MonoBehaviour
     IEnumerator Attack()
     {
         animationHandler.AttackAnimation();
-        yield return w_stateDelay;
+        yield return w_attackDelay;
         SwitchState();
     }
 
     IEnumerator SpecialAttack()
     {
         animationHandler.SpeciaialAttackAnimation();
-        yield return w_stateDelay;
+        yield return w_specialAttackDelay;
         SwitchState();
     }
 
     IEnumerator Dodge()
     {
         animationHandler.BlockAnimation();
-        yield return w_stateDelay;
+        yield return w_dodgeDelay;
         SwitchState();
     }
 
@@ -114,13 +129,14 @@ public class Character : MonoBehaviour
     public void Hit()
     {
         animationHandler.HitAnimation();
+        hits++;
     }
 
     public bool CanDodge()
     {
         if (target.GetComponent<WeaponHandler>().AboutToAttack())
         {
-            int randomChanceToDodge = Random.Range(0, 5);
+            int randomChanceToDodge = Random.Range(0, 10);
             if (randomChanceToDodge > 1)
             {
                 state = State.Dodge;
